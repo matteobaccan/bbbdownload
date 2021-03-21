@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+
 if (!isset($argv[1])) {
     echo("Site URL missing. EX: https://bigblue.foo-bar.com/");
     die();
@@ -70,7 +71,8 @@ foreach ($lines as $line) {
     }
 }
 
-function put_file($presentation, $presentationroot, $type) {
+function put_file($presentation, $presentationroot, $type)
+{
     $from = $presentation . str_replace('\\', '/', $presentationroot) . $type;
     $to = str_replace('/', '\\', $presentationroot . $type);
     if (!file_exists($to)) {
