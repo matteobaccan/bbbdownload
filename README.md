@@ -26,3 +26,6 @@ for example
 
 http://127.0.0.1/playback/presentation/2.0/playback.html?meetingId=5abb43d27af53d4f3268874a3a4f22a497bdefa1-1615020094109
 
+# Native versione
+
+dotnet run --configuration Release
