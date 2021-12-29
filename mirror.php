@@ -11,9 +11,14 @@ if (!isset($argv[2])) {
     die();
 }
 
+$version = "2.0";
+if (isset($argv[3])) {
+    $version = $argv[3];
+}
+
 $presentation = $argv[1];
 $presentationroot = 'presentation\\' . $argv[2] . '\\';
-$presentationplayer = 'playback\\presentation\\2.0\\';
+$presentationplayer = 'playback\\presentation\\'.$version.'\\';
 
 put_file($presentation, $presentationplayer, 'acornmediaplayer/acornmediaplayer.base.css');
 put_file($presentation, $presentationplayer, 'acornmediaplayer/jquery.acornmediaplayer.js');
@@ -60,11 +65,22 @@ put_file($presentation, $presentationroot, 'video/webcams.mp4');
 put_file($presentation, $presentationroot, 'video/webcams.webm');
 put_file($presentation, '', 'favicon.ico');
 
+if( $version=='2.3' ){
+    put_file($presentation, $presentationplayer, 'favicon.ico');
+    put_file($presentation, $presentationplayer, 'styles/video-js.min.css');
+    put_file($presentation, $presentationplayer, 'manifest.json');
+    put_file($presentation, $presentationplayer, 'static/css/main.e64efa86.chunk.css');
+    put_file($presentation, $presentationplayer, 'static/js/2.6fec41ae.chunk.js');
+    put_file($presentation, $presentationplayer, 'static/js/main.e1a26d4d.chunk.js');
+    put_file($presentation, $presentationplayer, 'static/media/icons.c2f6ec67.woff');
+}
+
 $lines = file($presentationroot . 'shapes.svg');
 $img = 0;
 foreach ($lines as $line) {
     if (preg_match('/xlink:href=".*\\.png"/', $line, $regs)) {
         put_file($presentation, $presentationroot, substr($regs[0], 12, -1));
+        put_file($presentation, $presentationroot, str_replace( 'slide-','thumbnails/thumb-' ,substr($regs[0], 12, -1)));
     }
     if (preg_match('/text=".*\\.txt"/', $line, $regs)) {
         put_file($presentation, $presentationroot, substr($regs[0], 6, -1));
@@ -80,7 +96,10 @@ function put_file($presentation, $presentationroot, $type)
         // Creo percorso
         $dir = substr($to, 0, strrpos($to, '\\'));
         if (!file_exists($dir)) {
-            mkdir($dir, 0777, true);
+            if( !@mkdir($dir, 0777, true) ){
+               $errors = error_get_last();
+               echo "ERROR: " . $errors['type'] . " - " . $errors['message'] . "\r\n";
+            }
         }
 
         // Metto contenuto
