@@ -73,6 +73,7 @@ if( $version=='2.3' ){
     put_file($presentation, $presentationplayer, 'static/js/2.6fec41ae.chunk.js');
     put_file($presentation, $presentationplayer, 'static/js/main.e1a26d4d.chunk.js');
     put_file($presentation, $presentationplayer, 'static/media/icons.c2f6ec67.woff');
+    put_file($presentation, $presentationplayer, 'static/media/logo.874db01b.png');
 }
 
 $lines = file($presentationroot . 'shapes.svg');
