@@ -1,13 +1,13 @@
 <Project Sdk="Peachpie.NET.Sdk/1.0.0">
-
   <PropertyGroup>
     <OutputType>exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <StartupObject>mirror.php</StartupObject>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="**/*.php" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Update="Peachpie.App" Version="1.1.9" />
+  </ItemGroup>
 </Project>
